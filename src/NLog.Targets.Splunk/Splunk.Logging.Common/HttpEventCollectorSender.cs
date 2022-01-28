@@ -143,6 +143,11 @@ namespace Splunk.Logging
         public event Action<HttpEventCollectorException> OnError = (e) => { };
 
         /// <summary>
+        /// On warning callbacks.
+        /// </summary>
+        public event Action<HttpEventCollectorException> OnWarning = (e) => { };
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="HttpEventCollectorSender"/> class.
         /// </summary>
         /// <param name="uri">Splunk server uri, for example https://localhost:8088.</param>
@@ -596,7 +601,7 @@ namespace Splunk.Logging
             }
 
             var warning = $@"The following certificate errors were encountered when establishing the HTTPS connection to the server: {sslPolicyErrors}, Certificate subject: {certificate.Subject}, Certificate issuer:  {certificate.Issuer}";
-            OnError(new HttpEventCollectorException(HttpStatusCode.NotAcceptable, reply: warning));
+            OnWarning(new HttpEventCollectorException(HttpStatusCode.NotAcceptable, reply: warning));
             return true;
         }
 

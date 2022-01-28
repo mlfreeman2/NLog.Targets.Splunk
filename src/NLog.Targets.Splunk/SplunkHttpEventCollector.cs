@@ -221,6 +221,7 @@ namespace NLog.Targets.Splunk
                 httpVersion10Hack: UseHttpVersion10Hack
             );
             _hecSender.OnError += (e) => { InternalLogger.Error(e, "SplunkHttpEventCollector(Name={0}): Failed to send LogEvents", Name); };
+            _hecSender.OnWarning += (e) => { InternalLogger.Warning(e, "SplunkHttpEventCollector(Name={0}): Warning:", Name); };
         }
 
         /// <summary>
